@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Min;
 
 
 @Entity
-public class Producto {
+public class Productos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_producto;
@@ -21,10 +21,10 @@ public class Producto {
     @Column(nullable = false, length = 100)
     private String imagen;
 
-    public Producto() {
+    public Productos() {
     }
 
-    public Producto(Long id_producto, String nombre, double precio, String descripcion, int cantidad, String imagen) {
+    public Productos(Long id_producto, String nombre, double precio, String descripcion, int cantidad, String imagen) {
         this.id_producto = id_producto;
         this.nombre = nombre;
         this.precio = precio;

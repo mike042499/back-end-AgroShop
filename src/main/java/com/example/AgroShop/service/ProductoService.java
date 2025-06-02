@@ -1,6 +1,6 @@
 package com.example.AgroShop.service;
 
-import com.example.AgroShop.model.Producto;
+import com.example.AgroShop.model.Productos;
 import com.example.AgroShop.repository.IProductoRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +16,23 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public List<Producto> obtenerProductos() {
+    public List<Productos> obtenerProductos() {
         return productosRepository.findAll();
     }
 
     @Override
-    public Producto obtenerPorId(Long id) {
+    public Productos obtenerPorId(Long id) {
         return productosRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void guardarProducto(Producto producto) {
+    public void guardarProducto(Productos producto) {
         productosRepository.save(producto);
     }
 
     @Override
-    public void actualizarProducto(Long id, Producto producto) {
-        Producto productosExistente = productosRepository.findById(id).orElse(null);
+    public void actualizarProducto(Long id, Productos producto) {
+        Productos productosExistente = productosRepository.findById(id).orElse(null);
 
         if (productosExistente != null){
             productosExistente.setNombre(producto.getNombre());

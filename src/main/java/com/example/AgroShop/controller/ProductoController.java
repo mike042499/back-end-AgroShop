@@ -1,7 +1,7 @@
 package com.example.AgroShop.controller;
 
 
-import com.example.AgroShop.model.Producto;
+import com.example.AgroShop.model.Productos;
 import com.example.AgroShop.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,23 +21,23 @@ public class ProductoController {
     }
 
     @GetMapping
-    public List<Producto> listarProductos(){
+    public List<Productos> listarProductos(){
         return productoService.obtenerProductos();
     }
 
     @GetMapping("/{id}")
-    public Producto obtenerPorId(@PathVariable Long id){
+    public Productos obtenerPorId(@PathVariable Long id){
         return productoService.obtenerPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<String> guardarProducto(@RequestBody Producto producto){
+    public ResponseEntity<String> guardarProducto(@RequestBody Productos producto){
         productoService.guardarProducto(producto);
         return ResponseEntity.ok("Producto agregado con éxito");
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<String> actualizarProducto(@PathVariable Long id, @RequestBody Producto producto){
+    public ResponseEntity<String> actualizarProducto(@PathVariable Long id, @RequestBody Productos producto){
         productoService.actualizarProducto(id, producto);
         return ResponseEntity.ok("Producto editado con exito");
     }
