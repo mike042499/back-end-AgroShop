@@ -1,14 +1,14 @@
 package com.example.AgroShop.service;
 
-import com.example.AgroShop.model.Producto;
+import com.example.AgroShop.model.Productos;
 
 import java.util.List;
 
 public interface IProductoService {
-
-    List<Producto> obtenerProductos();
-    Producto obtenerPorId(Long id);
-    void guardarProducto(Producto producto);
-    void actualizarProducto(Long id, Producto producto);
+    List<Productos> obtenerProductos();
+    Productos obtenerPorId(Long id);
+    void guardarProducto(Productos producto);
+    void actualizarProducto(Long id, Productos producto);
     void borrarProducto(Long id);
+    Productos obtenerPorNombre(String nombre);
 }
