@@ -40,7 +40,7 @@ public class UsuarioController {
         return ResponseEntity.ok("Usuario eliminado con éxito!");
     }
 
-    @PutMapping ("/editar/id")
+    @PutMapping ("/editar/{id}")
     public ResponseEntity<String> editarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioActualizado){
         usuarioService.editarUsuario(id, usuarioActualizado);
         return ResponseEntity.ok("Usuario actualizado con éxito!");
