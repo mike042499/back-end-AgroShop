@@ -1,5 +1,6 @@
 package com.example.AgroShop.repository;
 
+
 import com.example.AgroShop.model.Productos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
