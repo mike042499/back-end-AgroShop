@@ -10,4 +10,5 @@ public interface iUsuarioService {
     void guardarUsuario(Usuario usuario);
     void deleteUsuario(Long id);
     void editarUsuario(Long id, Usuario usuarioActualizado);
+    Usuario findByCorreo(String correo);
 }

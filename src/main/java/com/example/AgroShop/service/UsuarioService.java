@@ -53,4 +53,9 @@ public class UsuarioService implements iUsuarioService{
             throw new RuntimeException("Usuario no encontrado con el id: " + id);
         }
     }
+
+    @Override
+    public Usuario findByCorreo(String correo) {
+        return usuarioRepository.findByCorreo(correo);
+    }
 }

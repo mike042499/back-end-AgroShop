@@ -45,4 +45,9 @@ public class UsuarioController {
         usuarioService.editarUsuario(id, usuarioActualizado);
         return ResponseEntity.ok("Usuario actualizado con éxito!");
     }
+
+    @GetMapping ("/correo/{correo}")
+    public Usuario obtenerPorCorreo(@PathVariable String correo){
+        return usuarioService.findByCorreo(correo);
+    }
 }
