@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/usuarios")
 public class UsuarioController {
     private final UsuarioService usuarioService;
@@ -31,7 +32,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<String> guardarUsuario(@RequestBody Usuario usuario){
         usuarioService.guardarUsuario(usuario);
-        return ResponseEntity.ok("Usuario agregadado con éxito!");
+        return ResponseEntity.ok("Registro realizado con éxito!");
     }
 
     @DeleteMapping ("/borrar/{id}")
