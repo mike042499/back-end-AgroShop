@@ -2,6 +2,7 @@ package com.example.AgroShop.controller;
 
 import com.example.AgroShop.model.Pedidos;
 import com.example.AgroShop.service.IPedidoService;
+import com.example.AgroShop.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    private final IPedidoService pedidoService;
+    private final PedidoService pedidoService;
 
     @Autowired
-    public PedidoController(IPedidoService pedidoService) {
+    public PedidoController(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
     }
 

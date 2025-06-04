@@ -2,6 +2,7 @@ package com.example.AgroShop.service;
 
 import com.example.AgroShop.model.Producto_pedido;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface IProducto_pedidoService {
@@ -14,7 +15,12 @@ public interface IProducto_pedidoService {
 
     void eliminarPorId(Long id);
 
-    Producto_pedido buscarPorIdPedido(Long idPedido);
+    List<Producto_pedido> findById_pedidos(Long idPedido);
 
-    Producto_pedido buscarPorIdProducto(Long idProducto);
+    List<Producto_pedido> findById_producto(Long idProducto);
+
+    void asignarProductosPedido(Long idPedido, HashMap<Long, Integer> idProductos);
+
+    void asignarProductoPedido(Long idPedido, Long idProductos, Integer cantidad);
+
 }

@@ -5,10 +5,12 @@ import com.example.AgroShop.service.IProducto_pedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/productopedido")
 public class Producto_pedidoController {
 
@@ -19,13 +21,41 @@ public class Producto_pedidoController {
         this.productoPedidoService = productoPedidoService;
     }
 
-    @PostMapping
-    public Producto_pedido guardarRelacion(@RequestBody Producto_pedido producto_pedido){
-        return productoPedidoService.guardarRelacion(producto_pedido);
-    }
-
+    @GetMapping
     public List<Producto_pedido> obtenerTodas(){
         return productoPedidoService.listarTodas();
     }
 
+    @GetMapping("/{id}")
+    public Producto_pedido obtenerPorId(@PathVariable Long id_producto_pedido){
+        return productoPedidoService.buscarPorId(id_producto_pedido);
+    }
+
+    @DeleteMapping("/borrar/{id}")
+    public void borrarPorId(@PathVariable Long id_producto_pedido){
+        productoPedidoService.eliminarPorId(id_producto_pedido);
+    }
+
+    @GetMapping("/pedido/{id}")
+    public List<Producto_pedido> obtenerPedidoPorId(@PathVariable Long idPedido){
+        return productoPedidoService.findById_pedidos(idPedido);
+    }
+
+    @GetMapping("/producto/{id}")
+    public List<Producto_pedido> obtenerProductosPorId(@PathVariable Long idProducto){
+        return productoPedidoService.findById_producto(idProducto);
+    }
+
+    @PostMapping("/{id_pedido}/asignar")
+    public void asignarProductosPedido(@PathVariable Long id_pedido, @RequestBody HashMap<Long, Integer> idsProductos) {
+        productoPedidoService.asignarProductosPedido(id_pedido, idsProductos);
+    }
+
+
+
+
+//    @PostMapping("/{id_pedido}/asignar/{id_producto}")
+//    public void asignarProductoPedido(@PathVariable Long id_pedido, @PathVariable Long id_producto){
+//        productoPedidoService.asignarProductoPedido(id_pedido, id_producto);
+//    }
 }
