@@ -3,13 +3,20 @@ package com.example.AgroShop.service;
 import com.example.AgroShop.model.Usuario;
 import com.example.AgroShop.repository.iUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UsuarioService implements iUsuarioService{
     private final iUsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsuarioService(iUsuarioRepository usuarioRepository) {
@@ -28,13 +35,22 @@ public class UsuarioService implements iUsuarioService{
 
     @Override
     public void guardarUsuario(Usuario usuario) {
-        usuarioRepository.save(usuario);
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setCorreo(usuario.getCorreo());
+        nuevoUsuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
+        nuevoUsuario.setNombre(usuario.getNombre());
+        nuevoUsuario.setDireccion(usuario.getDireccion());
+        nuevoUsuario.setLocalidad(usuario.getLocalidad());
+        nuevoUsuario.setTelefono(usuario.getTelefono());
+
+        usuarioRepository.save(nuevoUsuario);
     }
 
     @Override
     public void deleteUsuario(Long id) {
         usuarioRepository.deleteById(id);
     }
+
 
     @Override
     public void editarUsuario(Long id, Usuario usuarioActualizado) {
@@ -57,5 +73,13 @@ public class UsuarioService implements iUsuarioService{
     @Override
     public Usuario findByCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo);
+    }
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario user = usuarioRepository.findByCorreo(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getCorreo(), user.getContraseña(), new ArrayList<>());
     }
 }

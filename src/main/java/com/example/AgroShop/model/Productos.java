@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
+/*@Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor*/
 @Entity
 public class Productos {
     @Id
@@ -34,4 +34,72 @@ public class Productos {
     @JsonManagedReference
     private List<Producto_pedido> producto_pedido;
 
+    public Productos() {
+    }
+
+    public Productos(String nombre, double precio, String descripcion, Integer cantidad, String imagen, List<Producto_pedido> producto_pedido) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.imagen = imagen;
+        this.producto_pedido = producto_pedido;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Min(value = 0, message = "El precio no puede ser negativo")
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(@Min(value = 0, message = "El precio no puede ser negativo") double precio) {
+        this.precio = precio;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public List<Producto_pedido> getProducto_pedido() {
+        return producto_pedido;
+    }
+
+    public void setProducto_pedido(List<Producto_pedido> producto_pedido) {
+        this.producto_pedido = producto_pedido;
+    }
 }
