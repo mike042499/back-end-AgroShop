@@ -1,7 +1,6 @@
 package com.example.AgroShop.controller;
 
 import com.example.AgroShop.model.Pedidos;
-import com.example.AgroShop.service.IPedidoService;
 import com.example.AgroShop.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

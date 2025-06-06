@@ -19,12 +19,12 @@ public class Producto_pedido {
 
     @ManyToOne
     @JoinColumn(name = "id_producto", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "producto-ref")
     private Productos productos;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "id_pedidos", nullable = false)
+    @JsonBackReference(value = "pedido-ref")
     private Pedidos pedidos;
 
     @Column(nullable = false)

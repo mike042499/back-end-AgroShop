@@ -23,7 +23,7 @@ public class Productos {
     @Column(nullable = false)
     @Min(value = 0, message = "El precio no puede ser negativo")
     private double precio;
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 254)
     private String descripcion;
     @Column(nullable = false)
     private Integer cantidad;
@@ -31,7 +31,7 @@ public class Productos {
     private String imagen;
 
     @OneToMany(mappedBy = "productos", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "producto-ref")
     private List<Producto_pedido> producto_pedido;
 
 }

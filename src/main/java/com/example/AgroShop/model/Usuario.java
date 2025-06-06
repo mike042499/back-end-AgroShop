@@ -1,9 +1,13 @@
 package com.example.AgroShop.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,8 +17,7 @@ public class Usuario {
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private Long idUsuario;
+    private Long id_Usuario;
     @Column(nullable = false, length = 100)
     private String nombre;
     @Column(nullable = false)
@@ -28,4 +31,7 @@ public class Usuario {
     @Column(nullable = false)
     private String contraseña;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "usuario-pedido")
+    private List<Pedidos> pedidos = new ArrayList<>();
 }
