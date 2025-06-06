@@ -3,13 +3,20 @@ package com.example.AgroShop.service;
 import com.example.AgroShop.model.Usuario;
 import com.example.AgroShop.repository.iUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UsuarioService implements iUsuarioService{
     private final iUsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsuarioService(iUsuarioRepository usuarioRepository) {
@@ -57,5 +64,25 @@ public class UsuarioService implements iUsuarioService{
     @Override
     public Usuario findByCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo);
+    }
+
+    public Usuario registerUser(Usuario user) {
+        Usuario userLogin = new Usuario();
+        userLogin.setNombre(user.getNombre());
+        userLogin.setContraseña(passwordEncoder.encode(user.getContraseña()));
+        userLogin.setDireccion(user.getDireccion());
+        userLogin.setLocalidad(user.getLocalidad());
+        userLogin.setTelefono(user.getTelefono());
+        userLogin.setCorreo(user.getCorreo());
+        // Encriptar la contraseña
+        return usuarioRepository.save(userLogin);
+    }
+
+    public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+        Usuario user = usuarioRepository.findByCorreo(correo);
+        if (user == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getCorreo(), user.getContraseña(), new ArrayList<>());
     }
 }
