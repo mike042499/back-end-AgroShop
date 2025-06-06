@@ -4,6 +4,8 @@ import com.example.AgroShop.JwtUtil;
 import com.example.AgroShop.model.Usuario;
 import com.example.AgroShop.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,11 +46,23 @@ public class UsuarioController {
 //        return ResponseEntity.ok("Registro realizado con éxito!");
 //    }
 
+
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Usuario user) {
-        usuarioService.registerUser(user);
-        return ResponseEntity.ok("Usuario registrado con éxito");
+        try {
+            usuarioService.registerUser(user);
+            return ResponseEntity.ok("Usuario registrado con éxito");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Error: El usuario ya existe.");
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error interno al registrar el usuario.");
+        }
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Usuario user) {
