@@ -41,7 +41,7 @@ public class ProductoService implements IProductoService {
             productosExistente.setPrecio(producto.getPrecio());
             productosExistente.setDescripcion(producto.getDescripcion());
             productosExistente.setCantidad(producto.getCantidad());
-            productosExistente.setImagen(producto.getImagen() != null ? producto.getImagen() : productosExistente.getImagen());
+            productosExistente.setImagen(producto.getImagen().contains("undefined") ? producto.getImagen() : productosExistente.getImagen());
 
             productosRepository.save(productosExistente);
         }else{
